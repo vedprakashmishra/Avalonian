@@ -36,12 +36,12 @@
         android:layout_alignParentStart="true" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher"
-        android:layout_above="@+id/uid"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="49dp" />
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:src="@drawable/A_logo"
+        android:layout_marginTop="36dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/lid"
