@@ -43,8 +43,8 @@
         android:background="@color/colorPrimary"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="90dp"
-        android:layout_below="@+id/uid"
-        android:layout_alignEnd="@+id/textView" />
+        android:layout_marginRight="90dp"
+        android:layout_below="@+id/uid" />
 
     <TextView
         android:id="@+id/textView"
