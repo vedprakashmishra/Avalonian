@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Avalonian</string>
+    <string name="example_edittext">Username</string>
+    <string name="show_the_text">Login</string>
+    <string name="enter_text">Password</string>
 </resources>
