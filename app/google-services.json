@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "392483539094",
+    "firebase_url": "https://avalonian-a7e34.firebaseio.com",
+    "project_id": "avalonian-a7e34",
+    "storage_bucket": "avalonian-a7e34.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:392483539094:android:7e0437ca29f28d9a",
+        "android_client_info": {
+          "package_name": "com.example.ajit.avalonian"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "392483539094-nn2qnlj2m0uocere2j8cbgcvko0dbng2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfM3pimV1vvKZavf3JjRYRcTrVAh_4VQ4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
