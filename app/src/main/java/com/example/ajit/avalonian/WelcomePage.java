@@ -51,6 +51,11 @@ public class WelcomePage extends AppCompatActivity {
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setHasFixedSize(true);
 
+        if(getIntent().hasExtra("username")){
+            String title=getIntent().getStringExtra("username");
+            WelcomePage.this.getSupportActionBar().setTitle("Hi, "+title+"!");
+        }
+
         getNotes();
         FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
         if(user!=null) s=user.getEmail();
@@ -146,7 +151,6 @@ public class WelcomePage extends AppCompatActivity {
                         rv.setAdapter(new MyRecyclerAdapter(l,R.layout.one_note));
                     }
                 });
-
 
             }
 

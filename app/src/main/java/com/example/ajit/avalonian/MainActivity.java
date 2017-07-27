@@ -2,10 +2,12 @@ package com.example.ajit.avalonian;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -18,6 +20,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import static com.example.ajit.avalonian.R.id.progressBar;
 
@@ -29,6 +38,11 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth auth;
     String email,pwd;
     ProgressBar bar;
+    Query query;
+    int a = 0;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference ref;
+    String s, n;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,9 +105,41 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this, "Authorization Failed", Toast.LENGTH_LONG).show();
                             }
                         } else {
-                            Intent intent = new Intent(MainActivity.this, WelcomePage.class);
-                            startActivity(intent);
-                            finish();
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            if (user != null) {
+                                s = user.getEmail();
+                                User obj = new User();
+                                firebaseDatabase = FirebaseDatabase.getInstance();
+                                ref = firebaseDatabase.getReference(obj.StringChanger(s));
+                                query = ref.getRoot().child("users").child(obj.StringChanger(s)).child("username");
+                                query.addValueEventListener(new ValueEventListener() {
+
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        n = dataSnapshot.getValue().toString();
+                                        a = 1;
+                                        Intent intent = new Intent(MainActivity.this, WelcomePage.class);
+                                        intent.putExtra("username",n);
+                                        startActivity(intent);
+                                        finish();
+                                        Log.e("login hai already", "kuch bhi");
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+
+                            }
+                            else {
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        bar.setVisibility(View.VISIBLE);
+                                        }
+                                },2500);
+                            }
                         }
                     }
                 });
