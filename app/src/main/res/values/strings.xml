@@ -3,6 +3,8 @@
     <string name="example_edittext">Username</string>
     <string name="show_the_text">Login</string>
     <string name="enter_text">Password</string>
+    <string name="Pref_Name">Login_Status</string>
+    <string name="Pref_Key">Status</string>
     <string name="sign_up"> <u>Already have an account? Login here</u></string>
     <string name="login"> <u>No account yet? Create one</u></string>
 </resources>

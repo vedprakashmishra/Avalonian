@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,7 +10,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:focusableInTouchMode="true"/>
     <ImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
@@ -25,6 +27,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/name"
+        android:hint="Name"
+        android:textColorHint="#FDFEFE"
+        android:layout_marginLeft="64dp"
+        android:layout_marginRight="64dp"
+        android:focusableInTouchMode="true"
         android:layout_below="@+id/image">
 
         <EditText
@@ -32,11 +39,6 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#FDFEFE"
         android:id="@+id/nid"
-        android:hint="Name"
-        android:textColorHint="#FDFEFE"
-        android:layout_marginLeft="64dp"
-        android:layout_marginRight="64dp"
-        android:focusableInTouchMode="true"
         android:layout_below="@id/name"/>
 
     </android.support.design.widget.TextInputLayout>
@@ -45,7 +47,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/email"
-            android:layout_below="@+id/name">
+            android:layout_below="@+id/name"
+        android:hint="Email Id"
+        android:textColorHint="#FDFEFE"
+        android:layout_marginLeft="64dp"
+        android:layout_marginRight="64dp"
+        android:focusableInTouchMode="true">
 
         <EditText
         android:layout_width="match_parent"
@@ -53,17 +60,19 @@
         android:backgroundTint="#FDFEFE"
         android:id="@+id/eid"
         android:inputType="textEmailAddress"
-        android:hint="Email Id"
-        android:textColorHint="#FDFEFE"
-        android:layout_marginLeft="64dp"
-        android:layout_marginRight="64dp"
-        android:focusableInTouchMode="true"/>
+       />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/pwd"
+            android:hint="Password"
+            android:textColorHint="#FDFEFE"
+            android:layout_marginLeft="64dp"
+            android:layout_marginRight="64dp"
+            android:inputType="textPassword"
+            android:focusableInTouchMode="true"
             android:layout_below="@+id/email">
 
         <EditText
@@ -71,13 +80,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="#FDFEFE"
-        android:id="@+id/spid"
-        android:hint="Password"
-        android:textColorHint="#FDFEFE"
-        android:layout_marginLeft="64dp"
-        android:layout_marginRight="64dp"
         android:inputType="textPassword"
-        android:focusableInTouchMode="true"/>
+        android:id="@+id/spid"
+        />
 
 </android.support.design.widget.TextInputLayout>
     <Button

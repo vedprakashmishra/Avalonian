@@ -20,6 +20,11 @@ public class Notes {
     }
 
     @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
     public String toString() {
         return "Notes{" +
                 "title='" + title + '\'' +
