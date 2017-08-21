@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
-        android:hint="Email Id"
+        android:hint="Email Id/Phone No."
         android:textColorHint="#FDFEFE"
         android:layout_marginLeft="64dp"
         android:layout_marginRight="64dp"
@@ -38,7 +38,6 @@
             android:focusableInTouchMode="true"
             android:inputType="textEmailAddress"
             android:backgroundTint="#FDFEFE"/>
-
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout

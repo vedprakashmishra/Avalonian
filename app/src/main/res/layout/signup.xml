@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/email"
             android:layout_below="@+id/name"
-        android:hint="Email Id"
+        android:hint="Email Id/Phone No."
         android:textColorHint="#FDFEFE"
         android:layout_marginLeft="64dp"
         android:layout_marginRight="64dp"
@@ -59,8 +59,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#FDFEFE"
         android:id="@+id/eid"
-        android:inputType="textEmailAddress"
-       />
+        android:inputType="textEmailAddress" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout

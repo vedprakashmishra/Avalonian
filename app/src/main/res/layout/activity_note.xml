@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#caf2d0d0"
+    tools:context="com.example.ajit.avalonian.Note">
+
+
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/note_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/colorPrimary"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/note_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="title"
+        android:textSize="25dp"
+        android:layout_below="@+id/note_toolbar"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/note_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="time"
+        android:textSize="15dp"
+        android:layout_below="@+id/note_title"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="italic|bold" />
+
+    <TextView
+        android:id="@+id/note_des"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Note"
+        android:layout_marginLeft="10dp"
+        android:textSize="20dp"
+        android:layout_below="@+id/note_time"
+        android:textColor="@android:color/black" />
+</RelativeLayout>

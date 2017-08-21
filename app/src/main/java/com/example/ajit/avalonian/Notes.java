@@ -8,9 +8,8 @@ public class Notes {
     public String title;
     public String des;
     public String time;
-
     public Notes() {
-        // Default constructor required for calls to DataSnapshot.getValue(User.class)
+        // Default constructor required for calls to DataSnapshot.getValue(user.class)
     }
 
     public Notes(String t, String dis, String time) {

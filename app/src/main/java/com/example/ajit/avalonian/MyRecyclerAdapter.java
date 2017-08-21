@@ -1,8 +1,12 @@
 package com.example.ajit.avalonian;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -12,9 +16,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
@@ -25,12 +31,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by vpmishra on 26-07-2017.
@@ -45,6 +51,7 @@ import java.util.List;
 
         public MyRecyclerAdapter(List<Notes> items, int itemLayout) {
             this.items = items;
+
             this.itemLayout = itemLayout;
             viewBinderHelper.setOpenOnlyOne(true);
         }
@@ -55,7 +62,8 @@ import java.util.List;
 
         }
 
-        @Override public void onBindViewHolder(final ViewHolder holder, int position) {
+        @Override
+        public void onBindViewHolder(final ViewHolder holder, final int position) {
             final Notes item = items.get(position);
             holder.des.setText(item.getDes());
             holder.title.setText(item.getTitle());
@@ -67,8 +75,9 @@ import java.util.List;
             if (items != null && 0 <= position && position < items.size()) {
                 final Notes data = items.get(position);
                 viewBinderHelper.bind(holder.swipeLayout, position+"");
-
                 holder.bind(data);
+
+
                 holder.delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -83,9 +92,16 @@ import java.util.List;
                                 String x="";
                                 final User obj=new User();
                                 FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
-                                if(user!=null) x=user.getEmail();
-                                FirebaseDatabase.getInstance().getReference().getRoot().child("users").child(obj.StringChanger(x)).child("notes").
-                                        addListenerForSingleValueEvent(new ValueEventListener() {
+                                Query qry;
+                                SharedPreferences sharedPreferences = holder.itemView.getContext().getSharedPreferences(holder.itemView.getContext().getString(R.string.Pref_Name),MODE_PRIVATE);
+                                String phone=sharedPreferences.getString(holder.itemView.getContext().getString(R.string.phone),"t");
+                                Log.e("phone",phone);
+                                if(user!=null&&phone.equalsIgnoreCase("t")) {
+                                    x=user.getEmail();
+                                    qry=FirebaseDatabase.getInstance().getReference().getRoot().child("users").child(obj.StringChanger(x)).child("notes");
+                                }
+                                else  qry=FirebaseDatabase. getInstance().getReference().getRoot().child("Phone_users").child(phone).child("notes");
+                                        qry.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(DataSnapshot dataSnapshot) {
                                                 for (DataSnapshot snapshot:dataSnapshot.getChildren()) {
@@ -116,108 +132,16 @@ import java.util.List;
 
                     }
                 });
-
-                holder.edit.setOnClickListener(new View.OnClickListener() {
+                holder.cardview.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        Intent intent=new Intent(holder.itemView.getContext(),Note.class);
                         final int i=holder.getAdapterPosition();
                         final Notes n=items.get(i);
-                        n.getTime();
-                        Log.e("pos", " "+n.getTime());
-                        final String x="";
-                        final User obj=new User();
-                        final FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
-
-                        FirebaseDatabase.getInstance().getReference().getRoot().child("users").child(obj.StringChanger(user.getEmail())).child("notes").
-                                addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        for (final DataSnapshot snapshot:dataSnapshot.getChildren()) {
-                                            String time = (String) snapshot.child("time").getValue();
-                                            String de,ti;
-                                            if (time==n.getTime()) {
-                                                de = (String) snapshot.child("des").getValue();
-                                                ti = (String) snapshot.child("title").getValue();
-                                                Log.e("oye key",snapshot.getKey());
-                                                final AlertDialog.Builder builder = new AlertDialog.Builder(holder.itemView.getContext(),R.style.DialogTheme);
-                                                LayoutInflater li = LayoutInflater.from(holder.itemView.getContext());
-                                                View promptsView = li.inflate(R.layout.add_note, null);
-                                                builder.setView(promptsView);
-                                                final EditText t = (EditText) promptsView.findViewById(R.id.tid1);
-                                                final EditText n = (EditText) promptsView.findViewById(R.id.noteid1);
-                                                Button save =(Button) promptsView.findViewById(R.id.save);
-                                                Button cancel =(Button) promptsView.findViewById(R.id.cancel);
-                                                t.setText(ti);
-                                                n.setText(de);
-                                                builder.setCancelable(false);
-                                                final AlertDialog alertDialog = builder.create();
-                                                alertDialog.show();
-                                                save.setOnClickListener(new View.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(View v) {
-                                                        String title =t.getText().toString();
-                                                        String description=n.getText().toString();
-                                                        if (TextUtils.isEmpty(title)) {
-                                                            t.setError("Can't be empty!");
-                                                            t.requestFocus();
-                                                            return;
-                                                        }
-                                                        if (TextUtils.isEmpty(description)) {
-                                                            n.setError("Can't be empty!");
-                                                            n.requestFocus();
-                                                            return;
-                                                        }
-                                                        String time1 = String.valueOf(Calendar.getInstance().getTime().getTime());
-                                                        //Notes notes=new Notes(title,description,time);
-                                                        User obj=new User();
-                                                        DatabaseReference r=firebaseDatabase.getReference().child("users").child(obj.StringChanger(user.getEmail())).child("notes").child(snapshot.getKey());
-                                                        //r.setValue(notes);
-                                                        r.child("title").setValue(title);
-                                                        r.child("des").setValue(description);
-                                                        r.child("time").setValue(time1);
-                                                        Toast.makeText(holder.itemView.getContext(),"Note Edited Successfully!",Toast.LENGTH_SHORT).show();
-                                                        alertDialog.cancel();
-                                                    }
-                                                });
-
-                                                cancel.setOnClickListener(new View.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(View v) {
-                                                        viewBinderHelper.closeLayout(String.valueOf(holder.getAdapterPosition()));
-                                                        alertDialog.cancel();
-                                                    }
-                                                });
-                                            }
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });
-                    }
-                });
-
-                holder.share.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                        sharingIntent.setType("text/plain");
-                        String des,title,time;
-                        final int i=holder.getAdapterPosition();
-                        final Notes n=items.get(i);
-                        des=n.getDes();
-                        title=n.getTitle();
-                        time=n.getTime();
-                        Calendar c=Calendar.getInstance();
-                        c.setTimeInMillis(Long.parseLong(time));
-                        time=c.get(Calendar.DATE)+"/"+String.valueOf(c.get(Calendar.MONTH)+1)+"/" +c.get(Calendar.YEAR);
-                        Log.e("02", String.valueOf(c.get(Calendar.MONTH)+1));
-                        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT,"Title: "+title+"\n"+"Date: "+time+"\n"+"Time: "+c.get(Calendar.HOUR)+" : "+c.get(Calendar.MINUTE)+" "+(c.get(Calendar.AM_PM)==0?"AM":"PM")+"\n"+"Note: "+des);
-                        holder.itemView.getContext().startActivity(Intent.createChooser(sharingIntent, "Shearing Option"));
-                        viewBinderHelper.closeLayout(String.valueOf(holder.getAdapterPosition()));
+                        String time=n.getTime();
+                        intent.putExtra("time",time);
+                        holder.itemView.getContext().startActivity(intent);
+                        //holder.itemView.overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
                     }
                 });
             }
@@ -233,10 +157,11 @@ import java.util.List;
             public TextView time;
             public TextView des;
             private View deleteLayout;
-            public ImageView delete,edit,share;
+            public ImageView delete;
             SwipeRevealLayout swipeLayout;
+            public View cardview;
 
-            public ViewHolder(View itemView) {
+            public ViewHolder(final View itemView) {
                 super(itemView);
 
                 title = (TextView) itemView.findViewById(R.id.note_title);
@@ -245,13 +170,14 @@ import java.util.List;
                 deleteLayout = itemView.findViewById(R.id.delete_layout);
                 swipeLayout = (SwipeRevealLayout) itemView.findViewById(R.id.swipe_layout);
                 delete=(ImageView) itemView.findViewById(R.id.delete);
-                edit=(ImageView) itemView.findViewById(R.id.edit);
-                share=(ImageView) itemView.findViewById(R.id.share);
+                cardview= itemView.findViewById(R.id.card);
+
             }
 
             public void bind(Notes data) {
 
             }
+
         }
     }
 

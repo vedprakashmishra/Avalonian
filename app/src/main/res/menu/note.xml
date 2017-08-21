@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/reminder1"
+        android:layout_width="wrap_content"
+        android:icon="@drawable/reminder_off"
+        android:title="Item"
+        android:visible="true"
+        app:showAsAction="always" >
+
+        <menu>
+            <item
+                android:id="@+id/reminder"
+                android:layout_width="wrap_content"
+                android:icon="@drawable/reminder_off"
+                android:title="Item"
+                android:visible="true"
+                app:showAsAction="always"/>
+        </menu>
+        </item>
+    <item
+        android:id="@+id/edit"
+        android:layout_width="wrap_content"
+        android:icon="@drawable/edit"
+        android:title="Item"
+        android:visible="true"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/share"
+        android:layout_width="wrap_content"
+        android:checkable="false"
+        android:icon="@drawable/share"
+        android:title="Item"
+        android:visible="true"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:icon="@drawable/delete"
+        android:title="Item"
+        android:visible="true"
+        app:showAsAction="always" />
+</menu>
