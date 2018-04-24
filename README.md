@@ -1,6 +1,6 @@
 # Avalonian
 
-This application is a personalized note making app, notes once added can be modified or deleted, reminder feature is also there to send push notification to user.
+This application is a personalized note making app, notes once added can be modified or deleted, reminder feature is also there to send push notifications.
 
 Authorization:
 1. Using Email
