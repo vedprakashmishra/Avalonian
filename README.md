@@ -2,7 +2,7 @@
 
 This application is a personalized note making app, notes once added can be modified or deleted, reminder feature is also there to send push notifications.
 
-Authorization:
+Authentication:
 1. Using Email
 2. Using Mobile Number and OTP verification
 
